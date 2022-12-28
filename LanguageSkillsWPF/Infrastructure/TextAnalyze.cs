@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using TikaOnDotNet.TextExtraction;
-
 namespace LanguageSkillsWPF.Infrastructure
 {
     public static class TextAnalyze
@@ -23,7 +21,7 @@ namespace LanguageSkillsWPF.Infrastructure
 
         public static IEnumerable<SearchEntryModel> GetTopNWords(string file, int n)
         {
-            var text = extractor.Extract(file).Text.Trim();
+            var text = extractor.Extract(file).Trim();
             var orderedWords = text.ToLower()
                 .Split(' ', '.', ',', '-', '?', '!', '<', '>', '&', '[', ']', '(', ')', '\n', '\t')
                 .GroupBy(x => x)
