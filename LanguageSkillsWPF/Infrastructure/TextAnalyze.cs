@@ -27,8 +27,8 @@ namespace LanguageSkillsWPF.Infrastructure
                 .GroupBy(x => x)
                 .Select(x => new SearchEntryModel { Word = x.Key.Trim(), Count = x.Count() })
                 .Where(x => TextAnalyze.IsValidWord(x.Word) && TextAnalyze.IsRussianSymbols(x.Word))
-                .OrderByDescending(x => x.Count)
-                .Take(n);
+                .OrderByDescending(x => x.Count);
+               // .Take(n);
             return orderedWords;
         }
     }

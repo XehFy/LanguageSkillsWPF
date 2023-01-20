@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LanguageSkillsWPF.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,17 @@ namespace LanguageSkillsWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        WPFContext db = new WPFContext();
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
+        }
+
+        // при загрузке окна
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            db.Database.EnsureCreated();
         }
 
         private void CloseApp_Click(object sender, RoutedEventArgs e)

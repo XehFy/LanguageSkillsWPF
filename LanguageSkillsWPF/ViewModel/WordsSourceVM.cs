@@ -1,4 +1,6 @@
 ﻿using GongSolutions.Wpf.DragDrop;
+using LanguageSkillsWPF.Data;
+using LanguageSkillsWPF.Data.Entities;
 using LanguageSkillsWPF.Infrastructure;
 using LanguageSkillsWPF.Model;
 using LanguageSkillsWPF.Utilities;
@@ -74,15 +76,27 @@ namespace LanguageSkillsWPF.ViewModel
                     {
                         RequestManager manager = RequestManager.Get();
 
+                        WPFContext context = new WPFContext();
+
                         Collection<SearchEntryModel> sendingInfo = new Collection<SearchEntryModel>();
                         foreach (var checkbox in CheckboxesInformation)
                         {
                             if (checkbox.IsChecked == true)
                             {
                                 sendingInfo.Add(checkbox.SearchEntry);
+                                Card card = new Card()
+                                {
+                                    Word = checkbox.SearchEntry.Word,
+                                    NextRepeat = null,
+                                    StudyProgress = 0, 
+                                    Rating = checkbox.SearchEntry.Count,
+                                    Language = "sr"
+                                };   
+                                context.Add(card);
                             }
                         }
-
+                        context.SaveChanges();
+                        context.Dispose();
                         string json = JsonConvert.SerializeObject(sendingInfo);
                         StringContent body = new StringContent(json);
 
